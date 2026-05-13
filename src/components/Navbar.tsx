@@ -13,7 +13,7 @@ function Navbar() {
       <Link to="/">MyShop</Link>
 
       <div style={{ display: "flex", gap: "20px" }}>
-        <Link to="/">Home</Link>
+        <Link to="/">Homes</Link>
         <Link to="/products">Products</Link>
       </div>
 
