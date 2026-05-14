@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 function Navbar() {
   return (
@@ -13,7 +13,12 @@ function Navbar() {
       <Link to="/">MyShop</Link>
 
       <div style={{ display: "flex", gap: "20px" }}>
-        <Link to="/">Homes</Link>
+        <NavLink to='/' style={({ isActive }) => ({ color: isActive ? 'red' : 'black' })}>
+ Home
+
+        </NavLink>
+        
+     
         <Link to="/products">Products</Link>
       </div>
 
