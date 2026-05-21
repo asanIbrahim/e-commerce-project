@@ -13,12 +13,13 @@ function Navbar() {
       <Link to="/">MyShop</Link>
 
       <div style={{ display: "flex", gap: "20px" }}>
-        <NavLink to='/' style={({ isActive }) => ({ color: isActive ? 'red' : 'black' })}>
- Home
-
+        <NavLink
+          to="/"
+          style={({ isActive }) => ({ color: isActive ? "red" : "black" })}
+        >
+          Home
         </NavLink>
-        
-     
+
         <Link to="/products">Products</Link>
       </div>
 

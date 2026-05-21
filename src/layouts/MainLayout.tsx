@@ -5,8 +5,7 @@ function MainLayout() {
   return (
     <>
       <Navbar />
-
-      <main>
+<main>
         <Outlet />
       </main>
 
