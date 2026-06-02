@@ -4,31 +4,44 @@ import type { Product } from "../types/product";
 function Products() {
   const [data, setData] = useState<Product[]>([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
-  async function getData() {
-   setLoading(true)
-   try{
-    const res = await fetch("https://fakestoreapi.com/products");
-    if(!res.ok){
-      throw new Error("Api has been Failed")
-    }
-    const result = await res.json();
-    setData(result);
-   }
-   catch (err: unknown){
+  async function fetchData() {
+    setLoading(true);
+    try {
+      const res = await fetch("https://fakestoreapi.com/products");
+      if (!res.ok) {
+        throw new Error("Api has been Failed");
+      }
+      const data = await res.json();
+      setData(data);
+    } catch (err: unknown) {
       if (err instanceof Error) {
         setError(err.message);
       }
    }
    finally{
     setLoading(false)
-   }
+    }
   }
-
   useEffect(() => {
-    getData();
+    fetchData();
   }, []);
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentItems = data.slice(startIndex, endIndex);
+  const totalPages = Math.ceil(data.length / itemsPerPage);
+
+  const handlePreviousPage = () => {
+    if (currentPage > 1) setCurrentPage(currentPage - 1);
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+  };
 
   return (
     <>
@@ -40,20 +53,30 @@ function Products() {
             <th>Product ID</th>
             <th>Product price</th>
             <th>Product Descriptions</th>
-            <th>Product Price</th>
           </tr>
         </thead>
         <tbody>
-          {data.filter(val =>  val.id > 5).map((vel) => (
-            <tr key={vel.id}>
-              <td> {vel.id}</td>
-              <td> {vel.title}</td>
-              <td> {vel.description}</td>
-              <td>{vel.price}</td>
+          {currentItems.map((val) => (
+            <tr key={val.id}>
+              <td>{val.id}</td>
+              <td> {val.price}</td>
+              <td>{val.title}</td>
             </tr>
           ))}
         </tbody>
       </table>
+
+      <div style={{ margin: "50px", textAlign: "center" }}>
+        <button onClick={handlePreviousPage} disabled={currentPage === 1}>
+          Previous
+        </button>
+        <span style={{ margin: "0 15px" }}>
+          Page {currentPage} of {totalPages}
+        </span>
+        <button onClick={handleNextPage} disabled={currentPage === totalPages}>
+          Next
+        </button>
+      </div>
     </>
   );
 }
