@@ -6,7 +6,7 @@ function Products() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 11;
+  const itemsPerPage = 10;
 
   async function fetchData() {
     setLoading(true);
@@ -52,7 +52,7 @@ function Products() {
           <tr>
             <th>Product ID</th>
             <th>Product price</th>
-            <th>Product Descriptions</th>
+            <th>Product Description</th>
           </tr>
         </thead>
         <tbody>
