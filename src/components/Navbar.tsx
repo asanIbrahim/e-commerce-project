@@ -10,7 +10,7 @@ function Navbar() {
         alignItems: "center",
       }}
     >
-      <Link to="/">MyShops</Link>
+      <Link to="/">MyShop</Link>
 
       <div style={{ display: "flex", gap: "20px" }}>
         <NavLink
