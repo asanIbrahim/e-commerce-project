@@ -5,11 +5,10 @@ function MainLayout() {
   return (
     <>
       <Navbar />
-<main>
+      <main>
         <Outlet />
       </main>
-
-      <footer></footer>
+<footer></footer>
     </>
   );
 }
