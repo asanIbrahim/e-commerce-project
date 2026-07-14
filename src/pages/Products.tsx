@@ -1,31 +1,10 @@
-import React, { useEffect, useState } from "react";
-import type { Product } from "../types/product";
+import ProductCard from "../components/ProductCard";
+import useProductFetch from "../hooks/product/useProductFetch";
 
 function Products() {
-  const [data, setData] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-
-  async function fetchData() {
-    setLoading(true);
-    try {
-      const res = await fetch("https://fakestoreapi.com/products");
-      if (!res.ok) {
-        throw new Error("Api has been Failed");
-      }
-      const data = await res.json();
-      setData(data);
-    } catch (err: unknown) {
-      if (err instanceof Error) {
-        setError(err.message);
-      }
-    } finally {
-      setLoading(false);
-    }
-  }
-  useEffect(() => {
-    fetchData();
-  }, []);
+  const { data, loading, error } = useProductFetch({
+    url: "https://fakestoreapi.com/products",
+  });
 
   return (
     <>
@@ -40,12 +19,8 @@ function Products() {
           </tr>
         </thead>
         <tbody>
-          {data.map((val) => (
-            <tr key={val.id}>
-              <td>{val.id}</td>
-              <td> {val.price}</td>
-              <td>{val.title}</td>
-            </tr>
+          {data.map((product) => (
+            <ProductCard  product={product} />
           ))}
         </tbody>
       </table>
